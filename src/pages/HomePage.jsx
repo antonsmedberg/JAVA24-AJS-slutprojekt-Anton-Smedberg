@@ -9,7 +9,7 @@
  * - Notifikationer för användarfeedback
  */
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 // UI-komponenter
 import ScrumBoard from "../components/Board/ScrumBoard.jsx";
