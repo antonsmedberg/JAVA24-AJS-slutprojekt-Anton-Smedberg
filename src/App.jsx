@@ -5,11 +5,16 @@
  * Styr routing och navigation.
  * Tre sidor: inloggning, startsida och 404.
  */
-import React, { Suspense, lazy } from "react";
+import React from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import AuthGuard from "./components/Auth/AuthGuard.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 import { ErrorBoundary } from "react-error-boundary"; // Använd paketet istället
+
+// Direct imports instead of lazy loading
+import HomePage from "./pages/HomePage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 // Fallback UI för ErrorBoundary
 const ErrorFallback = ({ error, resetErrorBoundary }) => (
@@ -25,11 +30,6 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => (
   </div>
 );
 
-// Lazy loading för snabbare start
-const HomePage = lazy(() => import("./pages/HomePage.jsx"));
-const LoginPage = lazy(() => import("./pages/LoginPage.jsx"));
-const NotFoundPage = lazy(() => import("./pages/NotFoundPage.jsx"));
-
 function App() {
   return (
     <ErrorBoundary
@@ -39,26 +39,23 @@ function App() {
     >
       <AuthProvider>
         <Router>
-          {/* Väntar medan sidor laddas */}
-          <Suspense fallback={<div>Laddar...</div>}>
-            <Routes>
-              {/* Inloggningssida */}
-              <Route path="/login" element={<LoginPage />} />
+          <Routes>
+            {/* Inloggningssida */}
+            <Route path="/login" element={<LoginPage />} />
 
-              {/* Skyddad startsida */}
-              <Route
-                path="/"
-                element={
-                  <AuthGuard>
-                    <HomePage />
-                  </AuthGuard>
-                }
-              />
+            {/* Skyddad startsida */}
+            <Route
+              path="/"
+              element={
+                <AuthGuard>
+                  <HomePage />
+                </AuthGuard>
+              }
+            />
 
-              {/* 404-sida */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Suspense>
+            {/* 404-sida */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
         </Router>
       </AuthProvider>
     </ErrorBoundary>
