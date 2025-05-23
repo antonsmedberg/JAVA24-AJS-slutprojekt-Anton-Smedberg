@@ -5,7 +5,7 @@
  * Tydligt meddelande och knapp tillbaka till startsidan.
  */
 import React from "react";
-import { Link } from "react-router-dom"; // Ändra från react-router till react-router-dom
+import { Link } from "react-router";
 import Button from "../components/UI/Button.jsx";
 import "../styles/pages/NotFoundPage.css";
 

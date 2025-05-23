@@ -6,7 +6,7 @@
  * Tre sidor: inloggning, startsida och 404.
  */
 import React, { Suspense, lazy } from "react";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router";
 import AuthGuard from "./components/Auth/AuthGuard.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 import { ErrorBoundary } from "react-error-boundary"; // Använd paketet istället
@@ -17,11 +17,11 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => (
     <h2>Något gick fel</h2>
     <p>Ett oväntat fel uppstod. Försök ladda om sidan.</p>
     <div className="error-details">
-      <p><strong>Felmeddelande:</strong> {error.message}</p>
+      <p>
+        <strong>Felmeddelande:</strong> {error.message}
+      </p>
     </div>
-    <button onClick={resetErrorBoundary}>
-      Ladda om sidan
-    </button>
+    <button onClick={resetErrorBoundary}>Ladda om sidan</button>
   </div>
 );
 

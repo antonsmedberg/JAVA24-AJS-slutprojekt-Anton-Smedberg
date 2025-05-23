@@ -15,15 +15,7 @@ const rootElement = document.getElementById("root");
 
 if (rootElement) {
   // Skapar React-root med moderna API:et
-  const root = createRoot(rootElement, {
-    // Lägg till felhantering för React 19
-    onCaughtError: (error, errorInfo) => {
-      console.error("React caught an error:", error, errorInfo);
-    },
-    onUncaughtError: (error, errorInfo) => {
-      console.error("React uncaught error:", error, errorInfo);
-    }
-  });
+  const root = createRoot(rootElement);
 
   // Startar prestandamätning
   initPerformanceMonitoring();
