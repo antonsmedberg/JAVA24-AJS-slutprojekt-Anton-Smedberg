@@ -10,31 +10,36 @@ import "./styles/base/index.css"; // Globala stilar för hela appen
 import App from "./App.jsx"; // Min huvudkomponent
 import { initPerformanceMonitoring } from "./utils/performanceUtils.jsx"; // Prestandaövervakning
 
-// Väntar på att sidan är redo
-document.addEventListener("DOMContentLoaded", () => {
+// Hittar React:s hem i DOM:en
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  // Skapar React-root med moderna API:et
+  const root = createRoot(rootElement, {
+    // Lägg till felhantering för React 19
+    onCaughtError: (error, errorInfo) => {
+      console.error("React caught an error:", error, errorInfo);
+    },
+    onUncaughtError: (error, errorInfo) => {
+      console.error("React uncaught error:", error, errorInfo);
+    }
+  });
+
   // Startar prestandamätning
   initPerformanceMonitoring();
 
-  // Hittar React:s hem i DOM:en
-  const rootElement = document.getElementById("root");
-
-  if (rootElement) {
-    // Skapar React-root med moderna API:et
-    const root = createRoot(rootElement);
-
-    // StrictMode i utveckling för att hitta problem tidigt
-    if (process.env.NODE_ENV === "development") {
-      root.render(
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      );
-    } else {
-      // Produktion utan extra kontroller
-      root.render(<App />);
-    }
+  // StrictMode i utveckling för att hitta problem tidigt
+  if (process.env.NODE_ENV === "development") {
+    root.render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    );
   } else {
-    // Root-element saknas
-    console.error("Root element not found");
+    // Produktion utan extra kontroller
+    root.render(<App />);
   }
-});
+} else {
+  // Root-element saknas
+  console.error("Root element not found");
+}
