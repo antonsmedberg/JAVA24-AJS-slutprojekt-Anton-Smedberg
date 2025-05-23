@@ -6,7 +6,7 @@
  * Tre sidor: inloggning, startsida och 404.
  */
 import React, { Suspense, lazy } from "react";
-import { HashRouter as Router, Routes, Route } from "react-router";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import AuthGuard from "./components/Auth/AuthGuard.jsx";
 import { AuthProvider } from "./hooks/useAuth.jsx";
 import ErrorBoundary from "./components/UI/ErrorBoundary.jsx";
